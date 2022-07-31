@@ -31,7 +31,7 @@ class MyTheme {
       unselectedItemColor: HexColor('#46244C'),
       backgroundColor: Colors.blue,
     ),
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       color: Color.fromRGBO(135, 39, 71, 0),
     ),
     primaryColorDark: HexColor('#900C3F'),

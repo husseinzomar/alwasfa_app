@@ -20,8 +20,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
   
   static const List<Widget> _pages = <Widget>[
   Home(),
-  Order(),
   Search(),
+  Order(),
   Settings(),
 ];
   int currentIndex = 0;

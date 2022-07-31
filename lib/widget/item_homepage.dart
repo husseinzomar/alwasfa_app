@@ -2,11 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import '../pages/home.dart';
-import '../pages/order.dart';
-import '../pages/search.dart';
-import '../pages/settings.dart';
-
 class CustomHeader extends StatelessWidget {
   final Color backgroundColor;
   final Color borderColor;
@@ -18,7 +13,6 @@ class CustomHeader extends StatelessWidget {
   const CustomHeader({
     Key? key,
     required this.height,
-   
     this.child,
     this.backgroundColor = const Color.fromRGBO(133, 39, 71, 0),
     this.splashColor = const Color(0xFFCCFFCC),
@@ -39,10 +33,8 @@ class CustomHeader extends StatelessWidget {
             imageFilter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
             child: ClipPath(
               clipper: CustomHeaderClipper(
-                  startHeight: height * 0.75,
-                  endHeight: height * 0.18
-              ),
-              child: Container(
+                  startHeight: height * 0.75, endHeight: height * 0.18),
+              child: SizedBox(
                 width: width,
                 height: height * 0.76,
                 // color: shadowColor
@@ -56,13 +48,11 @@ class CustomHeader extends StatelessWidget {
           padding: const EdgeInsets.only(top: 1.0),
           child: ClipPath(
             clipper: CustomHeaderClipper(
-                startHeight: height * 0.75,
-                endHeight: height * 0.18
-            ),
+                startHeight: height * 0.75, endHeight: height * 0.18),
             child: Container(
-                width: width,
-                height: height * 0.75,
-                color: borderColor,
+              width: width,
+              height: height * 0.75,
+              color: borderColor,
             ),
           ),
         ),
@@ -71,35 +61,82 @@ class CustomHeader extends StatelessWidget {
         ClipPath(
           clipBehavior: Clip.antiAliasWithSaveLayer,
           clipper: CustomHeaderClipper(
-              startHeight: height * 0.68,
-              endHeight: height * 0.2
-          ),
+              startHeight: height * 0.68, endHeight: height * 0.2),
           child: Material(
             color: backgroundColor,
             child: InkWell(
               splashColor: splashColor,
               child: SizedBox(
-                  width: width,
-                  height: height * 0.8,
-                  child: child,
+                width: width,
+                height: height * 0.8,
+                child: child,
               ),
             ),
           ),
         ),
+
+        Padding(
+          padding: const EdgeInsets.only(left: 80.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 200.0,
+              ),
+              buildItem('title',image: 'assets/al.jpeg'),
+              SizedBox(
+                height: 20.0,
+              ),
+              buildItem('title', image: 'assets/al.jpeg'),
+              SizedBox(
+                height: 20.0,
+              ),
+              buildItem('title', image: 'assets/al.jpeg'),
+              SizedBox(
+                height: 20.0,
+              ),
+              buildItem('title', image: 'assets/logo.png'),
+            ],
+          ),
+        )
       ],
     );
   }
-}
 
+  Widget buildItem(String title, {String? image}) {
+    return Container(
+      height: 200,
+      width: 200,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(width: 2.0),
+        image: DecorationImage(image: AssetImage(image.toString())),
+      ),
+      child:  InkWell(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class CustomHeaderClipper extends CustomClipper<Path> {
   final double startHeight;
   final double endHeight;
 
-  const CustomHeaderClipper({
-    required this.startHeight,
-    required this.endHeight
-  });
+  const CustomHeaderClipper(
+      {required this.startHeight, required this.endHeight});
 
   @override
   Path getClip(Size size) {
@@ -109,7 +146,8 @@ class CustomHeaderClipper extends CustomClipper<Path> {
     return Path()
       ..moveTo(0, 0)
       ..lineTo(0, startHeight)
-      ..cubicTo(width * 0.35, height, width * 0.5, height * 0.4, width, endHeight)
+      ..cubicTo(
+          width * 0.35, height, width * 0.5, height * 0.4, width, endHeight)
       ..lineTo(width, 0)
       ..lineTo(0, 0)
       ..close();
@@ -119,11 +157,8 @@ class CustomHeaderClipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }
 
-
 class CustomHeaderBackgroundScreen extends StatelessWidget {
   const CustomHeaderBackgroundScreen({Key? key}) : super(key: key);
-  
-  
 
   @override
   Widget build(BuildContext context) {
@@ -133,14 +168,11 @@ class CustomHeaderBackgroundScreen extends StatelessWidget {
       body: SafeArea(
         child: CustomHeader(
           height: height,
-          
           child: const Padding(
             padding: EdgeInsets.all(8.0),
-            
           ),
         ),
       ),
-      
     );
   }
 }
